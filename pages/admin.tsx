@@ -378,7 +378,13 @@ import type { CSSProperties } from "react";
 const th: CSSProperties = {
   padding: "10px",
   textAlign: "left",
-  borderBottom: "1px solid #1f2933"
+  borderBottom: "1px solid #1f2933",
+};
+
+const td: CSSProperties = {
+  padding: "10px",
+  textAlign: "left",
+  borderBottom: "1px solid #1f2933",
 };
 
 
