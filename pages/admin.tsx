@@ -373,8 +373,14 @@ export default function AdminSites({ sites = [], logs = [] }: any) {
 /* -----------------------------------------------------------
    SERVER SIDE PROPS
 ------------------------------------------------------------ */
-const th = { padding: "8px", textAlign: "left", borderBottom: "1px solid #1f2933" };
-const td = { padding: "8px" };
+import type { CSSProperties } from "react";
+
+const th: CSSProperties = {
+  padding: "10px",
+  textAlign: "left",
+  borderBottom: "1px solid #1f2933"
+};
+
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
