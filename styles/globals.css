@@ -1,0 +1,88 @@
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BASE FONT */
+body {
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0e1117;
+  color: #e5e7eb;
+}
+
+/* LINKS */
+a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* HEADINGS */
+h1 { font-size: 2.2rem; font-weight: 700; }
+h2 { font-size: 1.6rem; font-weight: 600; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+
+/* INPUTS */
+input, select, textarea {
+  background: #111827;
+  border: 1px solid #374151;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+}
+input:focus {
+  border-color: #3b82f6;
+}
+
+/* BUTTONS */
+button {
+  background: #3b82f6;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  background: #2563eb;
+}
+
+/* CARD STYLE */
+.card {
+  background: #0b1220;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #1f2933;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+p, label {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+ul {
+  margin-left: 20px;
+}
+/* 🛑 DISABLE GLOBAL STYLE IN GENERATED SITES */
+body.no-global-style * {
+  all: revert;
+  font-family: initial;
+}
