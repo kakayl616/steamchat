@@ -27,7 +27,6 @@ export default function Register() {
       return;
     }
 
-    // redirect after successful signup
     router.push("/login");
   };
 
@@ -62,7 +61,7 @@ export default function Register() {
           <p style={{ color: "red", marginTop: 10 }}>
             {error}
           </p>
-        }
+        )}
       </div>
     </div>
   );
