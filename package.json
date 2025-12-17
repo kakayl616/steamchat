@@ -9,7 +9,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.15.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.88.0",
     "@types/cookie": "^0.6.0",
