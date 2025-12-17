@@ -12,13 +12,14 @@ export default async function handler(req, res) {
   );
 
   // ✅ Find auth cookie
-  const cookie = Object.values(req.cookies ?? {}).find(
+  // ✅ Auth
+const cookie = Object.values(req.cookies ?? {}).find(
   (v): v is string => typeof v === "string" && v.includes("access_token")
 );
 
-    .find(v => v?.includes("access_token"));
-
-  if (!cookie) return res.status(401).json({ error: "Not authenticated" });
+if (!cookie) {
+  return res.status(401).json({ error: "Not authenticated" });
+}
 
   const session = JSON.parse(decodeURIComponent(cookie));
   const accessToken = session.access_token;
