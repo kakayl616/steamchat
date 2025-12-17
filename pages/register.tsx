@@ -1,32 +1,69 @@
 import { useState } from "react";
-import { supabaseBrowser } from "../lib/supabaseBrowser";
 import { useRouter } from "next/router";
+import { supabaseBrowser } from "../lib/supabaseBrowser";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const { error } = await supabaseBrowser.auth.signUp({
-  email,
-  password,
-});
+  const signUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
+    const { error: signUpError } =
+      await supabaseBrowser.auth.signUp({
+        email,
+        password,
+      });
 
-    if (error) return setError(error.message);
+    setLoading(false);
+
+    if (signUpError) {
+      setError(signUpError.message);
+      return;
+    }
+
+    // redirect after successful signup
     router.push("/login");
   };
 
   return (
-    <div>
-      <h1>Create Account</h1>
-      <form onSubmit={signUp}>
-        <input placeholder="Email" onChange={e => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} required />
-        <button>Create Account</button>
-      </form>
-      {error && <p>{error}</p>}
+    <div className="container">
+      <div className="card" style={{ maxWidth: 420, margin: "auto" }}>
+        <h1>Create Account</h1>
+
+        <form onSubmit={signUp}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button disabled={loading}>
+            {loading ? "Creating..." : "Create Account"}
+          </button>
+        </form>
+
+        {error && (
+          <p style={{ color: "red", marginTop: 10 }}>
+            {error}
+          </p>
+        }
+      </div>
     </div>
   );
 }
