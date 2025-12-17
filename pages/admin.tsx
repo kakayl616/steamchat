@@ -395,12 +395,24 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
-  const cookie = Object.values(ctx.req.cookies).find(v => v?.includes("access_token"));
-  if (!cookie) return { redirect: { destination: "/login", permanent: false } };
+  const accessToken =
+  ctx.req.cookies["sb-access-token"] ||
+  ctx.req.cookies["supabase-auth-token"];
 
-  const session = JSON.parse(decodeURIComponent(cookie));
-  const { data } = await supabase.auth.getUser(session.access_token);
-  if (!data?.user) return { redirect: { destination: "/login", permanent: false } };
+if (!accessToken) {
+  return {
+    redirect: { destination: "/login", permanent: false },
+  };
+}
+
+const { data, error } = await supabase.auth.getUser(accessToken);
+
+if (error || !data?.user) {
+  return {
+    redirect: { destination: "/login", permanent: false },
+  };
+}
+
 
   const ADMIN_EMAIL = "zakitheboss21@gmail.com";
   if (data.user.email !== ADMIN_EMAIL) {
