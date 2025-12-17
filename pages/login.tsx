@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../lib/supabaseClient";
+import { supabaseBrowser } from "../lib/supabaseBrowser";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,10 +14,11 @@ export default function Login() {
     setError("");
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    const { error } = await supabaseBrowser.auth.signInWithPassword({
+  email,
+  password,
+});
+
 
     setLoading(false);
 
