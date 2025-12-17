@@ -16,7 +16,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!id || !status) return res.status(400).json({ error: "Missing fields." });
 
   // authenticate admin (reuse cookie)
-  const cookie = Object.values(req.cookies).find(v => v?.includes("access_token"));
+  const cookie = Object.values(req.cookies ?? {}).find(
+  (v): v is string => typeof v === "string" && v.includes("access_token")
+);
+
   if (!cookie) return res.status(401).json({ error: "Not authenticated" });
   const session = JSON.parse(decodeURIComponent(cookie));
   const supabaseAuth = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);

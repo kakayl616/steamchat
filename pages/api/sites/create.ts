@@ -15,7 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   );
 
   // FETCH AUTH COOKIE
-  const cookie = Object.values(req.cookies).find(v => v?.includes("access_token"));
+  const cookie = Object.values(req.cookies ?? {}).find(
+  (v): v is string => typeof v === "string" && v.includes("access_token")
+);
+
   if (!cookie) return res.status(401).json({ error: "Not logged in." });
 
   const session = JSON.parse(decodeURIComponent(cookie));
