@@ -9,7 +9,10 @@ export default async function handler(req, res) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 
-  const cookie = Object.values(req.cookies).find(v => v?.includes("access_token"))
+  const cookie = Object.values(req.cookies ?? {}).find(
+  (v): v is string => typeof v === "string" && v.includes("access_token")
+);
+
   if (!cookie) return res.status(401).end()
 
   const session = JSON.parse(decodeURIComponent(cookie))
