@@ -10,25 +10,40 @@ export default function Login() {
   const router = useRouter();
 
   const signIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    const { error } = await supabaseBrowser.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const { data, error } = await supabaseBrowser.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    setLoading(false);
+  setLoading(false);
 
-    if (error) {
-      setError(error.message);
-      return;
-    }
+  if (error) {
+    setError(error.message);
+    return;
+  }
 
-    // Full reload so auth cookies attach
+  // 🔑 USER IS LOGGED IN HERE
+  const user = data.user;
+
+  if (!user) {
+    setError("Login failed. No user returned.");
+    return;
+  }
+
+  // ✅ ADMIN CHECK
+  const ADMIN_EMAIL = "zakitheboss21@gmail.com";
+
+  if (user.email === ADMIN_EMAIL) {
+    window.location.href = "/admin";
+  } else {
     window.location.href = "/dashboard";
-  };
+  }
+};
+
 
   return (
     <div style={{ maxWidth: 420, margin: "auto" }}>
